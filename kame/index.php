@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -77,14 +76,7 @@
 				<div class="col-xs-4">
 					UserAgent
 					<select class="form-control" name="UserAgent" >
-					<option value="win7ie80"></option>
-					<option value="winxpie60">Internet Explorer 6.0 (XP)</option>
-					<option value="winxpie70">Internet Explorer 7.0 (XP)</option>
-					<option value="winxpie80">Internet Explorer 8.0 (XP)</option>
-					<option value="winxpfirefox12">Firefox 12.0 (XP)</option>
-					<option value="win7ie80">Internet Explorer 8.0 (W7)</option>
-					<option value="win7ie90">Internet Explorer 9.0 (W7)</option>
-					<option value="win7firefox3">Firefox 3.6.13 (W7)</option>
+					<?include "useragent.php";?>
 					</select>
 				</div>
 
