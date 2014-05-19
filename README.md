@@ -1,5 +1,5 @@
-kame
-====
+Kame
+===
 
 Web Front End for Thug (buffer)
 
