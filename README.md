@@ -6,6 +6,8 @@ Web Front End for Thug (buffer)
 
 Screen Shots
 =====
+http://imgur.com/47DthFe
+
 http://imgur.com/eIoGRut
 
 http://imgur.com/sp7rFzW
