@@ -16,12 +16,7 @@ http://imgur.com/GurYt3I
 Install
 =====
 
-1. Install Thug
+1. Install Thug - https://github.com/r3comp1le/scripts/blob/master/thug_ready.sh
 
-2. 
+2. Download Bootstrap - http://getbootstrap.com/getting-started/
 
-3.
-
-4.
-
-5.
