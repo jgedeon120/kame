@@ -115,7 +115,18 @@
 			<?php
 			foreach ($json_a['behavior'] as $behavior) {
 				echo "<tr>";
-				echo "<td>".$behavior['description']."</td>";
+				if(strpos($behavior['description'],'URL Classifier') !== false)
+				{
+					echo "<td class='danger'>".$behavior['description']."</td>";
+				}
+				elseif(strpos($behavior['description'],'JS Classifier') !== false)
+				{
+					echo "<td class='warning'>".$behavior['description']."</td>";
+				}
+				else
+				{
+					echo "<td>".$behavior['description']."</td>";
+				}
 				echo "</tr>";
 			}
 			?>
