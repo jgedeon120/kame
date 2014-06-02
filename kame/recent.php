@@ -13,29 +13,30 @@ $urls = $c_urls->find();
 	  <th>IP</th>
 	  <th>Download</th>
 	  <th>UserAgent</th>
-	  <th>Reader</th>
-	  <th>Flash</th>
-	  <th>Java</th>
 	  <th>User</th>
 	</tr>
   </thead>
   <tbody>
   <?
+  $id = 1;
   foreach ($urls as $doc)
 	{
+	#print "<pre>";
+	#print_r($doc);
+	#print "</pre>";
 ?>
 	<tr>
-	  <td>1</td>
+	  <td><?echo $id;?></td>
 	  <td><?echo $doc["date"];?></td>
-	  <td><?echo $doc["url"];?></a></td>
-	  <td><?echo $doc["ip"];?></a></td>
+	  <td><?echo $doc["url"];?></td>
+	  <td><?echo $doc["ip"]."<br>"; echo $doc["country"]."  <img src='http://www.geonames.org/flags/x/".$doc["countrycode"].".gif' height='15' width='20'>";?></td>
 	  <td><?echo $doc["download"];?></a></td>
 	  <td><?echo $doc["UserAgent"];?></td>
-	  <td><?echo $doc["reader"];?></td>
-	  <td><?echo $doc["flash"];?></td>
-	  <td><?echo $doc["java"];?></td>
 	  <td><?echo $doc["user"];?></td>
 	</tr>
-<?}?>
+	<?
+	$id++;
+	}
+	?>
   </tbody>
 </table>
