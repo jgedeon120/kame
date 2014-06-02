@@ -26,3 +26,10 @@ Install
 
 2. Download Bootstrap - http://getbootstrap.com/getting-started/
 
+Folder Structure
+=====
+/opt/thug
+
+/var/www/kame
+
+css,js,reports
