@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type='text/javascript' src="js/jquery-2.1.0.min.js"></script>
-	<script type='text/javascript' src="js/bootstrap-progressbar.js"></script>
 
     <title>Kamehameha</title>
 
@@ -62,8 +61,10 @@
     <div class="jumbotron">
       <div class="container">
 	  <center>
-	  <img src="banner.PNG" alt="banner" class="img-rounded"><br /><br />
-        <form class="form" role="form" action="submit.php" method="post">
+	  <div id="divMsg" style="display:none;"><img src="ajax-loader.gif" alt="banner" class="img-rounded"></div>
+	  <div id="divMsg2"><img src="banner.PNG" alt="banner" class="img-rounded"></div>
+	  <br /><br />
+        <form class="form" id="theform" role="form" action="submit.php" method="post">
 			<label class="sr-only" for="domain">URL</label>
 			
 			<div class="row">
@@ -104,13 +105,11 @@
 			</div>
 			<br />
 					<button type="submit" class="btn btn-primary" id="target">start</button>
+
 	  </div>
 		</form>
 		<br />
-
-			<div class="progress">
-				<div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="100"></div>
-			</div>
+		
 		</center>
 			
 
@@ -133,20 +132,21 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.min.js"></script>
-	<script type='text/javascript'>
-	$(document).ready(function(){  
-		$("form").submit(function(){
-			$('.progress-bar').progressbar({ refresh_speed: 1000});
-		});
-	});
-	
-	$('input[name="radios"]').on('change', function(){
-    if ($(this).val()=='http') {
-         $("#proxy").val("http://[username:password@]host:port");
-    } else  {
-         $("#proxy").val("sock5://[username:password@]host:port");
-    }
-});
+	<script type="text/javascript">
+     $('#target').click(function(){
+         $(this).attr('disabled','disabled');
+         $('#divMsg').show();
+		 $('#divMsg2').hide();
+		 $( "#theform" ).submit();
+         if(valid)
+            return true;
+         else
+            {
+              $(this).removeAttr('disabled');
+              $('#divMsg').hide();     
+              return false;
+            }
+     });
 	</script>
   </body>
 </html>
