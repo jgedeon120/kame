@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,20 +9,8 @@
 
     <title>Kamehameha</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <link href="css/jumbotron.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 	
 	<style>
 	.progress .progress-bar.six-sec-ease-in-out {
@@ -59,22 +46,41 @@
       </div>
     </div>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
 		<div class="row">
           <h2>Details</h2>
 			<?php
 			$id = htmlspecialchars($_GET["id"]);
-			
 			$string = file_get_contents("reports/".$id."/analysis/json/analysis.json");
 			$json_a=json_decode($string,true);
+			$theid = "id".$id;
+
+			$mongo = new Mongo();
+			$db = $mongo->table;
+			$collection = $db->sites;
+			$mongoQuery = array('time' => $theid);
+			$cursor = $collection->find($mongoQuery);
+			foreach ($cursor as $cur) 
+			{
+				$ip = $cur["ip"];
+				$countrycode = $cur["countrycode"];
+				$country = $cur["country"];
+				$ua = $cur["UserAgent"];
+			}
+			
 			?>
 			<table class="table table-bordered">
 			  <tr>
 				<th class="info">URL</th>
 				<td><?echo  $json_a['url'];?></td>
 				<td><?echo  $json_a['timestamp'];?></td>
+				<td></td>
+			  </tr>
+			  <tr>
+				<th class="info">Location</th>
+				<td><?echo $ip;?></td>
+				<td><?echo $country . "  <img src='http://www.geonames.org/flags/x/".$countrycode.".gif' height='15' width='20'>";?></td>
 				<td></td>
 			  </tr>
 			  <tr>
@@ -97,7 +103,7 @@
 			  </tr>
 			  <tr>
 				<th class="info">UserAgent</th>
-				<td><?echo  $json_a['thug']['personality']['useragent'];?></td>
+				<td><?echo $ua;?></td>
 				<td></td>
 				<td></td>
 			  </tr>
@@ -216,10 +222,6 @@
       </footer>
     </div> <!-- /container -->
 
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.min.js"></script>
 	<script type='text/javascript'>
 	$(document).ready(function(){  
