@@ -6,17 +6,17 @@ Web Front End for Thug (buffer)
 
 Screen Shots
 =====
-http://imgur.com/47DthFe
+![image](http://imgur.com/47DthFe.jpg)
 
-http://imgur.com/eIoGRut
+![image](http://imgur.com/eIoGRut.jpg)
 
-http://imgur.com/sp7rFzW
+![image](http://imgur.com/sp7rFzW.jpg)
 
-http://imgur.com/E0UPpOl
+![image](http://imgur.com/E0UPpOl.jpg)
 
-http://imgur.com/1We9Fp8
+![image](http://imgur.com/1We9Fp8.jpg)
 
-http://imgur.com/GurYt3I
+![image](http://imgur.com/GurYt3I.jpg)
 
 
 Install
