@@ -1,4 +1,4 @@
-Kame
+Kame (alpha testing)
 ===
 
 Web Front End for Thug (buffer)
