@@ -47,8 +47,4 @@ bootstrap
 - fonts
 - flags
 
-<<<<<<< HEAD
 reports
-=======
-reports
->>>>>>> origin/master
