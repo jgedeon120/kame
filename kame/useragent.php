@@ -8,6 +8,9 @@
 <option value="win7firefox3">Firefox 3.6.13 (W7)</option>
 
 <?
+# Uncomment to add more
+
+
 #<option value="winxpie60">Internet Explorer 6.0 (Windows XP)</option>
 #<option value="winxpie61">Internet Explorer 6.1 (Windows XP)</option>
 #<option value="winxpie70">Internet Explorer 7.0 (Windows XP)</option>

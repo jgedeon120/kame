@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type='text/javascript' src="js/jquery-2.1.0.min.js"></script>
-	<script type='text/javascript' src="js/bootstrap-progressbar.js"></script>
+    <script type='text/javascript' src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <title>Kamehameha</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/jumbotron.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
 	
 	<style>
 	.progress .progress-bar.six-sec-ease-in-out {
@@ -24,22 +23,20 @@
 	width: 400px;
 	}
 	</style>
-
   </head>
-
+  
   <body>
-
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a class="navbar-brand" href="index.php">Home</a>
 		  <a class="navbar-brand" href="results.php">Results</a>
+          <a class="navbar-brand" href="">    |   |     </a>
+          <a class="navbar-brand" href="#details">Details</a>
+          <a class="navbar-brand" href="#behav">Behav</a>
+          <a class="navbar-brand" href="#conn">Conn</a>
+          <a class="navbar-brand" href="#trans">Trans</a>
+          <a class="navbar-brand" href="#files">Files</a>
         </div>
         <div class="navbar-collapse collapse">
         </div><!--/.navbar-collapse -->
@@ -49,16 +46,17 @@
     <div class="jumbotron">
       <div class="container">
 		<div class="row">
-          <h2>Details</h2>
+          <h2 id="details">Details</h2>
 			<?php
 			$id = htmlspecialchars($_GET["id"]);
 			$string = file_get_contents("reports/".$id."/analysis/json/analysis.json");
 			$json_a=json_decode($string,true);
 			$theid = "id".$id;
 
+			include('conf.php');
 			$mongo = new Mongo();
-			$db = $mongo->table;
-			$collection = $db->sites;
+			$db = $mongo->$db;
+			$collection = $db->$db_table;
 			$mongoQuery = array('time' => $theid);
 			$cursor = $collection->find($mongoQuery);
 			foreach ($cursor as $cur) 
@@ -90,12 +88,6 @@
 				<td>Adobe Flash - <?echo  $json_a['thug']['plugins']['shockwaveflash'];?></td>
 			  </tr>
 			  <tr>
-				<th class="info">Proxy</th>
-				<td><?echo  $json_a['thug']['options']['proxy'];?></td>
-				<td></td>
-				<td></td>
-			  </tr>
-			  <tr>
 				<th class="info">Referer</th>
 				<td><?echo  $json_a['thug']['options']['referer'];?></td>
 				<td></td>
@@ -116,7 +108,7 @@
 	<div class="jumbotron">
       <div class="container">
 		<div class="row">
-          <h2>Behaviour</h2>
+          <h2 id="behav">Behaviour</h2>
 		  <table class="table table-bordered table-hover table-striped">
 			<?php
 			foreach ($json_a['behavior'] as $behavior) {
@@ -144,7 +136,7 @@
 	<div class="jumbotron">
       <div class="container">
 		<div class="row">
-          <h2>Connections</h2>
+          <h2 id="conn">Connections</h2>
 		  <table class="table table-bordered table-hover table-striped">
 			<?php
 				echo "<tr>";
@@ -179,7 +171,7 @@
 	<div class="jumbotron">
       <div class="container">
 		<div class="row">
-          <h2>Transactions</h2>
+          <h2 id="trans">Transactions</h2>
 			<img src="reports/<?echo $id;?>/analysis/graph.svg">
 		</div>
 	  </div>
@@ -188,7 +180,7 @@
 	<div class="jumbotron">
       <div class="container">
 		<div class="row">
-          <h2>Files in ZIP</h2>
+          <h2 id="files">Files in ZIP</h2>
 		  <a href='reports/<?echo $id;?>/package.zip'>Download</a>
 		  <table class="table table-bordered table-hover table-striped">
 			<?php
@@ -212,23 +204,9 @@
     </div>	
 
     <div class="container">
-      <!-- Example row of columns -->
-
-
-      <hr>
-
-      <footer>
-        <p>&copy; r3comp1l3 2014</p><p id="demo"></p>
-      </footer>
-    </div> <!-- /container -->
-
-    <script src="js/bootstrap.min.js"></script>
-	<script type='text/javascript'>
-	$(document).ready(function(){  
-		$("form").submit(function(){
-			$('.progress-bar').progressbar({ refresh_speed: 500});
-		});
-	});
-	</script>
+      <footer><p>&copy; r3comp1le 2014</p><p id="demo"></p></footer>
+    </div>
+	
+    <script src="bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -8,8 +8,8 @@
 
     <title>Kamehameha</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/jumbotron.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
 
   </head>
 
@@ -18,29 +18,22 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a class="navbar-brand" href="index.php">Home</a>
 		  <a class="navbar-brand" href="results.php">Results</a>
         </div>
-        <div class="navbar-collapse collapse">
-        </div><!--/.navbar-collapse -->
       </div>
     </div>
 
-
     <div class="jumbotron">
       <div class="container">
-		
         <?php
-		if(!empty($_POST["domain"]))
+		include('conf.php');
+		
+		if(!empty($_POST["url"]))
 		{
 			#Vars
-			$input = $_POST["domain"]; 
+			$input = $_POST["url"]; 
+			$theurl = $input;
 			$input = str_replace("http://","",$input);
 			$input = str_replace("https://","",$input);
 			$useragent = $_POST["UserAgent"]; 
@@ -55,7 +48,7 @@
 			$host = isset($parsed_url['host']) ? $parsed_url['host'] : ''; 
 			$ip = isset($host) ? gethostbyname($host) : '';
 			$ch = curl_init(); 
-			$geoip = "freegeoip.net/json/".$host;
+			$geoip = $geoip_domain . $host;
 			curl_setopt($ch, CURLOPT_URL, $geoip); 
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 			$geooutput = curl_exec($ch); 
@@ -66,18 +59,21 @@
 			
 			#Initiate Mongo
 			$mongo = new Mongo();
-			$db = $mongo->selectDB('table');
-			$sites = $db->sites;
-			$link = "<a href='report.php?id=".$time."' target='_blank'>".$input."</a>";
+			$db = $mongo->selectDB($db);
+			$sites = $db->$db_table;
+			$link = "<a href='report.php?id=".$time."' target='_blank'>".$theurl."</a>";
 			$dlink = "<a href='reports/".$time."/package.zip'>Download</a>";
-
+			
+			#Yara Rules
+			$yara = $yara_dir;
+			
 			#Execute Thug CMD
-			$com = "python /opt/thug/src/thug.py -n /var/www/thuggin/reports/".$time."/ -u ".$useragent." -t 90 ".$reader." ".$flash." ".$java." ".$input;
+			$com = "python ".$thug_py." -FZ -n ".$kame_reports_dir.$time."/ -C ".$yara." -u ".$useragent." -t 90 ".$reader." ".$flash." ".$java." ".$theurl;
 			$command = escapeshellcmd($com);
 			$output = shell_exec($command);
 			
 			#Zip Up the Aquire Files
-			$zipcmd = "zip -P infected -r /var/www/thuggin/reports/".$time."/package reports/".$time;
+			$zipcmd = "zip -P infected -r ".$kame_reports_dir.$time."/package reports/".$time;
 			$command = escapeshellcmd($zipcmd);
 			$output = shell_exec($zipcmd);
 			
@@ -89,30 +85,30 @@
 			$tracking = "id".$time;
 			
 			#Convert UA
-			$useragent = str_replace("winxpie61","Internet Explorer 6.1(Windows XP)",$useragent);
-			$useragent = str_replace("winxpie70","Internet Explorer 7.0(Windows XP)",$useragent);
-			$useragent = str_replace("winxpie80","Internet Explorer 8.0(Windows XP)",$useragent);
-			$useragent = str_replace("winxpchrome20","Chrome 20.0.1132.47(Windows XP)",$useragent);
-			$useragent = str_replace("winxpfirefox12","Firefox 12.0(Windows XP)",$useragent);
-			$useragent = str_replace("winxpsafari5","Safari 5.1.7(Windows XP)",$useragent);
-			$useragent = str_replace("win2kie60","Internet Explorer 6.0(Windows 2000)",$useragent);
-			$useragent = str_replace("win2kie80","Internet Explorer 8.0(Windows 2000)",$useragent);
-			$useragent = str_replace("win7ie80","Internet Explorer 8.0(Windows 7)",$useragent);
-			$useragent = str_replace("win7ie90","Internet Explorer 9.0(Windows 7)",$useragent);
-			$useragent = str_replace("win7chrome20","Chrome 20.0.1132.47(Windows 7)",$useragent);
-			$useragent = str_replace("win7firefox3","Firefox 3.6.13(Windows 7)",$useragent);
-			$useragent = str_replace("win7safari5","Safari 5.1.7(Windows 7)",$useragent);
-			$useragent = str_replace("osx10safari5","Safari 5.1.1(MacOS X 10.7.2)",$useragent);
-			$useragent = str_replace("osx10chrome19","Chrome 19.0.1084.54(MacOS X 10.7.4)",$useragent);
-			$useragent = str_replace("linuxchrome26","Chrome 26.0.1410.19(Linux)",$useragent);
-			$useragent = str_replace("linuxchrome30","Chrome 30.0.1599.15(Linux)",$useragent);
+			$useragent = str_replace("winxpie60","Internet Explorer 6.1 (Windows XP)",$useragent);
+			$useragent = str_replace("winxpie70","Internet Explorer 7.0 (Windows XP)",$useragent);
+			$useragent = str_replace("winxpie80","Internet Explorer 8.0 (Windows XP)",$useragent);
+			$useragent = str_replace("winxpchrome20","Chrome 20.0.1132.47 (Windows XP)",$useragent);
+			$useragent = str_replace("winxpfirefox12","Firefox 12.0 (Windows XP)",$useragent);
+			$useragent = str_replace("winxpsafari5","Safari 5.1.7 (Windows XP)",$useragent);
+			$useragent = str_replace("win2kie60","Internet Explorer 6.0 (Windows 2000)",$useragent);
+			$useragent = str_replace("win2kie80","Internet Explorer 8.0 (Windows 2000)",$useragent);
+			$useragent = str_replace("win7ie80","Internet Explorer 8.0 (Windows 7)",$useragent);
+			$useragent = str_replace("win7ie90","Internet Explorer 9.0 (Windows 7)",$useragent);
+			$useragent = str_replace("win7chrome20","Chrome 20.0.1132.47 (Windows 7)",$useragent);
+			$useragent = str_replace("win7firefox3","Firefox 3.6.13 (Windows 7)",$useragent);
+			$useragent = str_replace("win7safari5","Safari 5.1.7 (Windows 7)",$useragent);
+			$useragent = str_replace("osx10safari5","Safari 5.1.1 (MacOS X 10.7.2)",$useragent);
+			$useragent = str_replace("osx10chrome19","Chrome 19.0.1084.54 (MacOS X 10.7.4)",$useragent);
+			$useragent = str_replace("linuxchrome26","Chrome 26.0.1410.19 (Linux)",$useragent);
+			$useragent = str_replace("linuxchrome30","Chrome 30.0.1599.15 (Linux)",$useragent);
 			$useragent = str_replace("linuxfirefox19","Firefox 19.0(Linux)",$useragent);
-			$useragent = str_replace("galaxy2chrome18","Chrome 18.0.1025.166(Samsung Galaxy S II, Android 4.0.3)",$useragent);
-			$useragent = str_replace("galaxy2chrome25","Chrome 25.0.1364.123(Samsung Galaxy S II, Android 4.0.3)",$useragent);
-			$useragent = str_replace("galaxy2chrome29","Chrome 29.0.1547.59(Samsung Galaxy S II, Android 4.1.2)",$useragent);
-			$useragent = str_replace("nexuschrome18","Chrome 18.0.1025.133(Google Nexus, Android 4.0.4)",$useragent);
-			$useragent = str_replace("ipadsafari7","Safari 7.0(iPad, iOS 7.0.4)",$useragent);
-			$useragent = str_replace("ipadchrome33","Chrome 33.0.1750.21(iPad, iOS 7.1)",$useragent);
+			$useragent = str_replace("galaxy2chrome18","Chrome 18.0.1025.166 (Samsung Galaxy S II, Android 4.0.3)",$useragent);
+			$useragent = str_replace("galaxy2chrome25","Chrome 25.0.1364.123 (Samsung Galaxy S II, Android 4.0.3)",$useragent);
+			$useragent = str_replace("galaxy2chrome29","Chrome 29.0.1547.59 (Samsung Galaxy S II, Android 4.1.2)",$useragent);
+			$useragent = str_replace("nexuschrome18","Chrome 18.0.1025.133 (Google Nexus, Android 4.0.4)",$useragent);
+			$useragent = str_replace("ipadsafari7","Safari 7.0 (iPad, iOS 7.0.4)",$useragent);
+			$useragent = str_replace("ipadchrome33","Chrome 33.0.1750.21 (iPad, iOS 7.1)",$useragent);
 			
 			#Insert Into Mongo
 			$site = array(
@@ -125,7 +121,6 @@
 				'reader'=>$reader,
 				'flash'=>$flash,
 				'java'=>$java,
-				'user'=>$_SERVER['PHP_AUTH_USER'],
 				'country'=>$country,
 				'countrycode'=>$countrycode
 			);
@@ -143,15 +138,10 @@
     </div>
 
     <div class="container">
-      <hr>
-
-      <footer>
-        <p>&copy; r3comp1l3 2014</p>
-      </footer>
+      <footer><p>&copy; r3comp1le 2014</p><p id="demo"></p></footer>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
 

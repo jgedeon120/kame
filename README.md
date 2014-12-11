@@ -1,5 +1,6 @@
-Kame (alpha testing)
+Kame (beta)
 ===
+I am not a developer!!!! Feel free to submit any fixes, suggestions, improvements, etc.
 
 Web Front End for Thug (buffer)
 
@@ -22,7 +23,7 @@ Screen Shots
 Install
 =====
 
-1. Install Thug - https://github.com/r3comp1le/scripts/blob/master/thug_ready.sh
+1. Install Thug
 
 2. Download Bootstrap - http://getbootstrap.com/getting-started/
 
@@ -31,5 +32,19 @@ Folder Structure
 /opt/thug
 
 /var/www/kame
+- banner.png
+- loading.gif
+- index.php
+- report.php
+- results.php
+- submit.php
+- useragent.php
+- conf.php
 
-css,js,reports
+bootstrap
+- css
+- js
+- fonts
+- flags
+
+reports

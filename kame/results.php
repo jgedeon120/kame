@@ -4,14 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type='text/javascript' src="js/jquery-2.1.0.min.js"></script>
-	<script type='text/javascript' src="js/bootstrap-progressbar.js"></script>
+    <script type='text/javascript' src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <title>Kamehameha</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/jumbotron.css" rel="stylesheet">
-	
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
 	<style>
 	.progress .progress-bar.six-sec-ease-in-out {
     -webkit-transition: width 6s ease-in-out;
@@ -24,25 +21,15 @@
 	width: 400px;
 	}
 	</style>
-
   </head>
 
   <body>
-
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a class="navbar-brand" href="index.php">Home</a>
 		  <a class="navbar-brand" href="results.php">Results</a>
         </div>
-        <div class="navbar-collapse collapse">
-        </div><!--/.navbar-collapse -->
       </div>
     </div>
 
@@ -50,29 +37,52 @@
       <div class="container">
 		<div class="row">
           <h2>Recent Reports</h2>
-			<?include 'recent.php';?>
+			<?php
+			include('conf.php');
+			$mongo = new Mongo();
+			$db = $mongo->$db;
+			$c_urls = $db->$db_table;
+			$urls = $c_urls->find();
+			?>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+					<th>#</th>
+					<th>Date</th>
+					<th>URL</th>
+					<th>IP</th>
+					<th>Download</th>
+					<th>UserAgent</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?
+				$id = 1;
+				foreach ($urls as $doc)
+				{
+				?>
+					<tr>
+					<td><?echo $id;?></td>
+					<td><?echo $doc["date"];?></td>
+					<td><?echo $doc["url"];?></td>
+					<td><?echo $doc["ip"]."<br>"; echo $doc["country"]."  <img src='bootstrap/flags/".$doc["countrycode"].".gif' height='15' width='20'>";?></td>
+					<td><?echo $doc["download"];?></a></td>
+					<td><?echo $doc["UserAgent"];?></td>
+					</tr>
+				<?
+				$id++;
+				}
+				?>
+				</tbody>
+			</table>
 		</div>
 	  </div>
     </div>
 
     <div class="container">
-      <!-- Example row of columns -->
+      <footer><p>&copy; r3comp1le 2014</p><p id="demo"></p></footer>
+    </div>
 
-
-      <hr>
-
-      <footer>
-        <p>&copy; r3comp1l3 2014</p><p id="demo"></p>
-      </footer>
-    </div> <!-- /container -->
-
-    <script src="js/bootstrap.min.js"></script>
-	<script type='text/javascript'>
-	$(document).ready(function(){  
-		$("form").submit(function(){
-			$('.progress-bar').progressbar({ refresh_speed: 500});
-		});
-	});
-	</script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
