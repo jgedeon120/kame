@@ -4,8 +4,7 @@ I am not a developer!!!! Feel free to submit any fixes, suggestions, improvement
 
 Web Front End for Thug (buffer)
 
-[![Demo](http://img.youtube.com/vi/nXoOw8aKYSU/0.jpg)](https://www.youtube.com/watch?v=nXoOw8aKYSU)
-
+![Output sample](http://zippy.gfycat.com/FaithfulOddballEasteuropeanshepherd.gif)
 
 
 Screen Shots
