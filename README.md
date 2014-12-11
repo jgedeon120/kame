@@ -5,7 +5,7 @@ I am not a developer!!!! Feel free to submit any fixes, suggestions, improvement
 Web Front End for Thug (buffer)
 
 ![Output sample](http://zippy.gfycat.com/FaithfulOddballEasteuropeanshepherd.gif)
-
+http://gfycat.com/FaithfulOddballEasteuropeanshepherd
 
 Screen Shots
 =====
