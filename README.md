@@ -11,7 +11,7 @@ Screen Shots
 =====
 ![image](http://imgur.com/47DthFe.jpg)
 
-![image](http://imgur.com/eIoGRut.jpg)
+![image](http://i.imgur.com/rQkIiJC.jpg)
 
 ![image](http://imgur.com/sp7rFzW.jpg)
 
