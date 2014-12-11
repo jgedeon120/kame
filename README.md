@@ -32,19 +32,19 @@ Folder Structure
 /opt/thug
 
 /var/www/kame
-	banner.png
-	loading.gif
-	index.php
-	report.php
-	results.php
-	submit.php
-	useragent.php
-	conf.php
+- banner.png
+- loading.gif
+- index.php
+- report.php
+- results.php
+- submit.php
+- useragent.php
+- conf.php
 
 bootstrap
-	css
-	js,
-	fonts
-	flags
+- css
+- js
+- fonts
+- flags
 
 reports
