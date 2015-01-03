@@ -70,7 +70,7 @@
           $urlclass = $urlclassifier;
 
           #Execute Thug CMD
-          $com = "python ".$thug_py." -FZ -n ".$kame_reports_dir.$time."/ -C ".$yara." -W ".$jsclass." -Q ".$urlclass." -u ".$useragent." -t 90 ".$reader." ".$flash." ".$java." -r ".$referrer." ".$theurl;
+          $com = "python ".$thug_py." -FZ ".$thug_output." -n ".$kame_reports_dir.$time."/ -C ".$yara." -W ".$jsclass." -Q ".$urlclass." -u ".$useragent." -t 90 ".$reader." ".$flash." ".$java." -r ".$referrer." ".$theurl;
           $command = escapeshellcmd($com);
           $output = shell_exec($command);
 
