@@ -44,11 +44,11 @@
           <form class="form" id="theform" role="form" action="submit.php" method="post">
             <label class="sr-only" for="url">URL</label>
             <div class="row">
-              <input type="text" class="form-control box-shadow" id="url" name="url" placeholder="http://www.badsite.com"><br />
+              <input type="text" class="form-control box-shadow" id="url" name="url" placeholder="URL - http://www.badsite.com"><br />
             </div>
             <label class="sr-only" for="referrer">Referrer</label>
             <div class="row">
-              <input type="text" class="form-control box-shadow" id="referrer" name="referrer" placeholder="http://www.unsuspectingsite.com"><br />
+              <input type="text" class="form-control box-shadow" id="referrer" name="referrer" placeholder="Referrer - http://www.unsuspectingsite.com"><br />
             </div>
             <div class="row">
               <div class="col-xs-4">UserAgent<select class="form-control" name="UserAgent" ><?php include "useragent.php";?></select></div>
