@@ -71,14 +71,12 @@
 			  <tr>
 				<th class="info">URL</th>
 				<td><?php echo  htmlspecialchars($json_a['url']);?></td>
-				<td><?php echo  $json_a['timestamp'];?></td>
-				<td></td>
+				<td colspan="2"><?php echo  $json_a['timestamp'];?></td>
 			  </tr>
 			  <tr>
 				<th class="info">Location</th>
 				<td><?php echo $ip;?></td>
-				<td><?php echo $country . "  <img src='http://www.geonames.org/flags/x/".$countrycode.".gif' height='15' width='20'>";?></td>
-				<td></td>
+				<td colspan="2"><?php echo $country . "  <img src='http://www.geonames.org/flags/x/".$countrycode.".gif' height='15' width='20'>";?></td>
 			  </tr>
 			  <tr>
 				<th class="info">Plugins</th>
@@ -88,15 +86,11 @@
 			  </tr>
 			  <tr>
 				<th class="info">Referrer</th>
-				<td><?php echo  htmlspecialchars($json_a['thug']['options']['referer']);?></td>
-				<td></td>
-				<td></td>
+				<td colspan="3"><?php echo  htmlspecialchars($json_a['thug']['options']['referer']);?></td>
 			  </tr>
 			  <tr>
 				<th class="info">UserAgent</th>
-				<td><?php echo $ua;?></td>
-				<td></td>
-				<td></td>
+				<td colspan="3"><?php echo $ua;?></td>
 			  </tr>
 			</table>
 
