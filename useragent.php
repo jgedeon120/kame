@@ -14,8 +14,8 @@
 
 <option value="win2kie60">Internet Explorer 6.0 (Windows 2000)</option>
 <option value="win2kie80">Internet Explorer 8.0 (Windows 2000)</option>
-<option value="osx10safari5">Safari 5.1.1 (MacOS X 10.7.2)</option>
 
+<option value="osx10safari5">Safari 5.1.1 (MacOS X 10.7.2)</option>
 <option value="osx10chrome19">Chrome 19.0.1084.54 (MacOS X 10.7.4)</option>
 
 <option value="linuxchrome26">Chrome 26.0.1410.19 (Linux)</option>
