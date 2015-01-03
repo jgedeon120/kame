@@ -10,27 +10,27 @@
 
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
-	
+
 	<style>
 	.progress .progress-bar.six-sec-ease-in-out {
-    -webkit-transition: width 6s ease-in-out;
-    -moz-transition: width 6s ease-in-out;
-    -ms-transition: width 6s ease-in-out;
-    -o-transition: width 6s ease-in-out;
-    transition: width 6s ease-in-out;
+		-webkit-transition: width 6s ease-in-out;
+		-moz-transition: width 6s ease-in-out;
+		-ms-transition: width 6s ease-in-out;
+		-o-transition: width 6s ease-in-out;
+		transition: width 6s ease-in-out;
 	}
 	.domain{
-	width: 400px;
+		width: 400px;
 	}
 	</style>
   </head>
-  
+
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="index.php">Home</a>
-		  <a class="navbar-brand" href="results.php">Results</a>
+	  <a class="navbar-brand" href="results.php">Results</a>
           <a class="navbar-brand" href="">    |   |     </a>
           <a class="navbar-brand" href="#details">Details</a>
           <a class="navbar-brand" href="#behav">Behav</a>
@@ -49,8 +49,8 @@
           <h2 id="details">Details</h2>
 			<?php
 			$id = htmlspecialchars($_GET["id"]);
-			$string = file_get_contents("reports/".$id."/analysis/json/analysis.json");
-			$json_a=json_decode($string,true);
+			$string = file_get_contents("/var/www/kame/reports/".$id."/analysis/json/analysis.json");
+			$json_a = json_decode($string,true);
 			$theid = "id".$id;
 
 			include('conf.php');
@@ -59,52 +59,51 @@
 			$collection = $db->$db_table;
 			$mongoQuery = array('time' => $theid);
 			$cursor = $collection->find($mongoQuery);
-			foreach ($cursor as $cur) 
-			{
+			foreach ($cursor as $cur) {
 				$ip = $cur["ip"];
 				$countrycode = $cur["countrycode"];
 				$country = $cur["country"];
 				$ua = $cur["UserAgent"];
 			}
-			
+
 			?>
 			<table class="table table-bordered">
 			  <tr>
 				<th class="info">URL</th>
-				<td><?echo  $json_a['url'];?></td>
-				<td><?echo  $json_a['timestamp'];?></td>
+				<td><?php echo  htmlspecialchars($json_a['url']);?></td>
+				<td><?php echo  $json_a['timestamp'];?></td>
 				<td></td>
 			  </tr>
 			  <tr>
 				<th class="info">Location</th>
-				<td><?echo $ip;?></td>
-				<td><?echo $country . "  <img src='http://www.geonames.org/flags/x/".$countrycode.".gif' height='15' width='20'>";?></td>
+				<td><?php echo $ip;?></td>
+				<td><?php echo $country . "  <img src='http://www.geonames.org/flags/x/".$countrycode.".gif' height='15' width='20'>";?></td>
 				<td></td>
 			  </tr>
 			  <tr>
 				<th class="info">Plugins</th>
-				<td>Java - <?echo  $json_a['thug']['plugins']['javaplugin'];?></td>
-				<td>Adobe Reader - <?echo  $json_a['thug']['plugins']['acropdf'];?></td>
-				<td>Adobe Flash - <?echo  $json_a['thug']['plugins']['shockwaveflash'];?></td>
+				<td>Java - <?php echo  htmlspecialchars($json_a['thug']['plugins']['javaplugin']);?></td>
+				<td>Adobe Reader - <?php echo  htmlspecialchars($json_a['thug']['plugins']['acropdf']);?></td>
+				<td>Adobe Flash - <?php echo  htmlspecialchars($json_a['thug']['plugins']['shockwaveflash']);?></td>
 			  </tr>
 			  <tr>
-				<th class="info">Referer</th>
-				<td><?echo  $json_a['thug']['options']['referer'];?></td>
+				<th class="info">Referrer</th>
+				<td><?php echo  htmlspecialchars($json_a['thug']['options']['referer']);?></td>
 				<td></td>
 				<td></td>
 			  </tr>
 			  <tr>
 				<th class="info">UserAgent</th>
-				<td><?echo $ua;?></td>
+				<td><?php echo $ua;?></td>
 				<td></td>
 				<td></td>
 			  </tr>
 			</table>
-			
+
 		</div>
 	  </div>
     </div>
-	
+
 	<div class="jumbotron">
       <div class="container">
 		<div class="row">
@@ -131,8 +130,8 @@
 			</table>
 		</div>
 	  </div>
-    </div>	
-	
+    </div>
+
 	<div class="jumbotron">
       <div class="container">
 		<div class="row">
@@ -166,22 +165,22 @@
 			</table>
 		</div>
 	  </div>
-    </div>	
-	
+    </div>
+
 	<div class="jumbotron">
       <div class="container">
 		<div class="row">
           <h2 id="trans">Transactions</h2>
-			<img src="reports/<?echo $id;?>/analysis/graph.svg">
+			<img src="/var/www/kame/reports/<?php echo $id;?>/analysis/graph.svg">
 		</div>
 	  </div>
     </div>
-	
+
 	<div class="jumbotron">
       <div class="container">
 		<div class="row">
           <h2 id="files">Files in ZIP</h2>
-		  <a href='reports/<?echo $id;?>/package.zip'>Download</a>
+		  <a href='reports/<?php echo $id;?>/package.zip'>Download</a>
 		  <table class="table table-bordered table-hover table-striped">
 			<?php
 				echo "<tr>";
@@ -201,12 +200,12 @@
 			</table>
 		</div>
 	  </div>
-    </div>	
+    </div>
 
     <div class="container">
       <footer><p>&copy; r3comp1le 2014</p><p id="demo"></p></footer>
     </div>
-	
+
     <script src="bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
