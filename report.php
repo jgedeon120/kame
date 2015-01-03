@@ -49,7 +49,7 @@
           <h2 id="details">Details</h2>
 			<?php
 			$id = htmlspecialchars($_GET["id"]);
-			$string = file_get_contents("/var/www/kame/reports/".$id."/analysis/json/analysis.json");
+			$string = file_get_contents("./reports/".$id."/analysis/json/analysis.json");
 			$json_a = json_decode($string,true);
 			$theid = "id".$id;
 
@@ -165,7 +165,7 @@
       <div class="container">
 		<div class="row">
           <h2 id="trans">Transactions</h2>
-			<img src="/var/www/kame/reports/<?php echo $id;?>/analysis/graph.svg">
+			<img src="./reports/<?php echo $id;?>/analysis/graph.svg">
 		</div>
 	  </div>
     </div>
