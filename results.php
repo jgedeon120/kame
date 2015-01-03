@@ -9,18 +9,18 @@
     <title>Kamehameha</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
-	<style>
-	.progress .progress-bar.six-sec-ease-in-out {
+  <style>
+  .progress .progress-bar.six-sec-ease-in-out {
     -webkit-transition: width 6s ease-in-out;
     -moz-transition: width 6s ease-in-out;
     -ms-transition: width 6s ease-in-out;
     -o-transition: width 6s ease-in-out;
     transition: width 6s ease-in-out;
-	}
-	.domain{
-	width: 400px;
-	}
-	</style>
+  }
+  .domain{
+  width: 400px;
+  }
+  </style>
   </head>
 
   <body>
@@ -28,55 +28,58 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="index.php">Home</a>
-		  <a class="navbar-brand" href="results.php">Results</a>
+          <a class="navbar-brand" href="results.php">Results</a>
         </div>
       </div>
     </div>
 
     <div class="jumbotron">
       <div class="container">
-		<div class="row">
-          <h2>Recent Reports</h2>
-			<?php
-			include('conf.php');
-			$mongo = new Mongo();
-			$db = $mongo->$db;
-			$c_urls = $db->$db_table;
-			$urls = $c_urls->find();
-			?>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-					<th>#</th>
-					<th>Date</th>
-					<th>URL</th>
-					<th>IP</th>
-					<th>Download</th>
-					<th>UserAgent</th>
-					</tr>
-				</thead>
-				<tbody>
-				<?
-				$id = 1;
-				foreach ($urls as $doc)
-				{
-				?>
-					<tr>
-					<td><?echo $id;?></td>
-					<td><?echo $doc["date"];?></td>
-					<td><?echo $doc["url"];?></td>
-					<td><?echo $doc["ip"]."<br>"; echo $doc["country"]."  <img src='bootstrap/flags/".$doc["countrycode"].".gif' height='15' width='20'>";?></td>
-					<td><?echo $doc["download"];?></a></td>
-					<td><?echo $doc["UserAgent"];?></td>
-					</tr>
-				<?
-				$id++;
-				}
-				?>
-				</tbody>
-			</table>
-		</div>
-	  </div>
+    <div class="row">
+      <h2>Recent Reports</h2>
+      <?php
+      include('conf.php');
+      $mongo = new Mongo();
+      $db = $mongo->$db;
+      $c_urls = $db->$db_table;
+      $urls = $c_urls->find();
+      ?>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Report</th>
+          <th>URL</th>
+          <th>IP</th>
+          <th>Referrer</th>
+          <th>Download</th>
+          <th>UserAgent</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php
+        $id = 1;
+        foreach ($urls as $doc) {
+          ?>
+          <tr>
+            <td><?php echo $id;?></td>
+            <td><?php echo $doc["date"];?></td>
+            <td><?php echo $doc["reporturl"];?></td>
+            <td><?php echo htmlspecialchars($doc["url"]);?></td>
+            <td><?php echo htmlspecialchars($doc["ip"])."<br>"; echo htmlspecialchars($doc["country"])."  <img src='bootstrap/flags/".htmlspecialchars($doc["countrycode"]).".gif' height='15' width='20'>";?></td>
+            <td><?php echo htmlspecialchars($doc["referrer"]);?></td>
+            <td><?php echo $doc["download"];?></a></td>
+            <td><?php echo htmlspecialchars($doc["UserAgent"]);?></td>
+          </tr>
+        <?php
+        $id++;
+        }
+        ?>
+        </tbody>
+      </table>
+    </div>
+    </div>
     </div>
 
     <div class="container">
